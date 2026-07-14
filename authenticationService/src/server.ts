@@ -113,7 +113,7 @@ await connectDB();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: ["http://localhost:8080", "the-matyrs.vercel.app"],
     credentials: true,
     // These headers must be exposed so the browser can read them for
     // HTTP range-request (seek/scrub) support in the audio player.
