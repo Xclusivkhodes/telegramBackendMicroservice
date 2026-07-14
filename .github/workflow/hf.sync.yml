@@ -1,19 +1,33 @@
-name: Sync to Hugging Face hub
+name: Sync Folder to Hugging Face hub
 on:
   push:
     branches: [main]
-  # to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  sync-to-hub:
+  sync-folder:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           lfs: true
-      - name: Push to Hub
+
+      - name: Push Specific Folder to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://xclusivs:$HF_TOKEN@huggingface.co/spaces/xclusivs/thematyrs main
+        run: |
+          # 1. Move into your target folder (CHANGE 'streamingService' BELOW)
+          cd streamingService
+          
+          # 2. Turn this folder into a temporary git repo
+          git init
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          
+          # 3. Stage and commit everything inside this folder
+          git add .
+          git commit -m "Deploying folder from GitHub Actions"
+          
+          # 4. Force push this isolated folder to Hugging Face main branch
+          git push --force https://xclusivs:$HF_TOKEN@huggingface.co/spaces/xclusivs/thematyrs HEAD:refs/heads/main
