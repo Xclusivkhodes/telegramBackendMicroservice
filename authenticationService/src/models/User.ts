@@ -22,7 +22,7 @@
 import bcrypt from "bcryptjs";
 import { Schema, model } from "mongoose";
 import { AppError } from "../utils/AppError.js";
-import { encrypt, decrypt } from "../utils/encryptor.js";
+// import { encrypt, decrypt } from "../utils/encryptor.js";
 
 export interface IUser {
   firstName: string;
