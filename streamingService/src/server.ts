@@ -17,11 +17,11 @@ const CHANNELS = [
   // "-1001079635237"
 ];
 
-app.get("/health", (req, res) => {
-  res
-    .status(200)
-    .json({ status: "alive", message: "The Martyrs API is active" });
-});
+// app.get("/health", (req, res) => {
+//   res
+//     .status(200)
+//     .json({ status: "alive", message: "The Martyrs API is active" });
+// });
 
 // 2. Daily Sync Cron (3:00 AM)
 cron.schedule(
