@@ -1,0 +1,42 @@
+{
+  "dependencies": {
+    "@inquirer/prompts": "^8.3.2",
+    "big-integer": "^1.6.52",
+    "cloudinary": "^2.9.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "lru-cache": "^11.3.3",
+    "mongoose": "^9.3.1",
+    "node-cron": "^4.2.1",
+    "p-limit": "^7.3.0",
+    "telegram": "^2.26.22"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "devDependencies": {
+    "@types/big-integer": "^0.0.30",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.5.0",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "dev": "tsx --watch ./src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}

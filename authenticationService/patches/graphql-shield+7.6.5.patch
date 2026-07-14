@@ -1,0 +1,12 @@
+diff --git a/node_modules/graphql-shield/esm/rules.js b/node_modules/graphql-shield/esm/rules.js
+index 70530da..bd03d49 100644
+--- a/node_modules/graphql-shield/esm/rules.js
++++ b/node_modules/graphql-shield/esm/rules.js
+@@ -1,6 +1,6 @@
+ import * as Yup from 'yup';
+ import { isLogicRule } from './utils.js';
+-import { isUndefined } from 'util';
++const isUndefined = (val) => val === undefined;
+ export class Rule {
+     constructor(name, func, constructorOptions) {
+         const options = this.normalizeOptions(constructorOptions);
