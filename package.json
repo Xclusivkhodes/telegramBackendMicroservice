@@ -1,0 +1,14 @@
+{
+  "name": "backendMicroservice",
+  "version": "1.0.0",
+  "description": "Monorepo root for authentication and streaming services",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --names \"auth,stream\" --prefix-colors \"cyan,magenta\" \"npm run dev --prefix authenticationService\" \"npm run dev --prefix streamingService\"",
+    "dev:auth": "npm run dev --prefix authenticationService",
+    "dev:stream": "npm run dev --prefix streamingService"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
