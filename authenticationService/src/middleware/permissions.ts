@@ -19,7 +19,7 @@
  * Operations that need protection are listed explicitly.
  */
 
-import { rule, shield, and } from "graphql-shield";
+import { rule, shield, and } from "@vio/graphql-shield";
 import { AppError } from "../utils/AppError.js";
 import { createRateLimitRule } from "graphql-rate-limit";
 

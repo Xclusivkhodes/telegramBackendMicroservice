@@ -4,7 +4,7 @@
  * This file is the final assembly step for the GraphQL layer:
  *   1. Merges all resolver modules into one object
  *   2. Builds an executable schema (typeDefs + resolvers)
- *   3. Wraps it with graphql-shield permission middleware
+ *   3. Wraps it with vio/graphql-shield permission middleware
  *
  * The exported schemaWithPermissions is passed directly to ApolloServer
  * as its `schema` option — no separate typeDefs/resolvers options needed.
@@ -32,6 +32,6 @@ export const schema = makeExecutableSchema({
   resolvers: mergedResolvers,
 });
 
-// Wrap the schema with graphql-shield so every operation passes through
+// Wrap the schema with vio/graphql-shield so every operation passes through
 // the permission rules defined in permissions.ts before reaching a resolver
 export const schemaWithPermissions = applyMiddleware(schema, permissions);

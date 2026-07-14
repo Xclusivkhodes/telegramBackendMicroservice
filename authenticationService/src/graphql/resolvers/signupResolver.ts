@@ -6,7 +6,7 @@
  * Queries:
  *   me        — Returns the currently authenticated user (from GraphQL context)
  *   users     — Admin-only: returns all users with sensitive fields stripped
- *               (access enforced by graphql-shield in permissions.ts)
+ *               (access enforced by vio/graphql-shield in permissions.ts)
  *
  * Mutations:
  *   registerUser         — Creates a user, issues JWT cookies, and triggers

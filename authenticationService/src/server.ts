@@ -100,31 +100,12 @@ app.get("/health", (req, res) => {
     .json({ status: "alive", message: "The Martyrs API is active" });
 });
 
-// ─── 1. Database Connection ───────────────────────────────────────────────────
+// ─── Database Connection ───────────────────────────────────────────────────
 // Must complete before any resolver or cron job runs, because both depend on
 // Mongoose models being connected to the Atlas cluster.
 await connectDB();
 
-// ─── 2. Daily Sync Cron (3:00 AM Africa/Accra) ───────────────────────────────
-// Every night at 3 AM (Ghana time) the crawler walks every channel in CHANNELS,
-// downloads audio metadata + thumbnails, and upserts them into MongoDB.
-// Running at 3 AM minimises overlap with peak user traffic.
-
-// cron.schedule(
-//   "0 3 * * *",
-//   async () => {
-//     console.log("⏰ 3:00 AM: Daily Sync Triggered");
-//     try {
-//       await syncChannels(CHANNELS);
-//     } catch (error: any) {
-//       console.error("❌ Sync Failed:", error);
-//       throw new AppError(`An error occured: ${error.mesage || error}`);
-//     }
-//   },
-//   { timezone: "Africa/Accra" },
-// );
-
-// ─── 3. Global Middleware ─────────────────────────────────────────────────────
+// ─── Global Middleware ─────────────────────────────────────────────────────
 // cookieParser: parses Cookie header so req.cookies is available (used for JWT)
 // cors: restricts cross-origin requests to known frontend origins and exposes
 //       the headers that the browser's <audio> element needs for range requests.
@@ -141,7 +122,7 @@ app.use(
 );
 app.use(express.json({ limit: "100kb" }));
 
-// ─── 4. REST Routes ───────────────────────────────────────────────────────────
+// ─── REST Routes ───────────────────────────────────────────────────────────
 
 // POST /refresh — Issues a new access token using the stored refresh token cookie.
 // Kept as REST (not GraphQL) because it must run before Apollo's context
@@ -151,26 +132,13 @@ app.use(express.json({ limit: "100kb" }));
 // To avoid stealing someone's session
 app.post("/refresh", authLimiter, refreshAccessToken);
 
-/**
- * GET /stream/:channelId/:messageId
- *
- * The core streaming endpoint. Flow:
- *   authenticateRequest → attaches full User doc (incl. sessionString) to req.user
- *   streamAudio         → uses that session to open an MTProto connection and
- *                         pipe the audio bytes back with HTTP 206 range support.
- *
- * Note: authenticateRequest must attach the full User object so streamAudio
- * doesn't need a second DB round-trip, keeping latency low.
- */
-// app.get("/stream/:channelId/:messageId", authenticateRequest, streamAudio);
-
 // GET /share/:channelId/:messageId — Returns an HTML page with injected Open
 // Graph meta tags so sharing a sermon link on social media shows a rich preview.
 app.get("/share/:channelId/:messageId", shareController);
 
 // ─── 5. Apollo GraphQL Server ─────────────────────────────────────────────────
 // Apollo is mounted at "/" so all GraphQL operations go to the root path.
-// schemaWithPermissions is the executable schema with graphql-shield middleware
+// schemaWithPermissions is the executable schema with vio/graphql-shield middleware
 // baked in — no separate resolvers/typeDefs options needed.
 // The context function runs on every request and:
 //   a) Instantiates data-source classes (thin wrappers around Mongoose models)
