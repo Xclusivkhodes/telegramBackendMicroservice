@@ -49,7 +49,7 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "dev": "tsx --watch ./src/server.ts",
+    "dev": "tsx ./src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
