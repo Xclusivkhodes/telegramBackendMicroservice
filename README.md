@@ -1,4 +1,4 @@
-Telegram Audio Streaming Backend
+#Telegram Audio Streaming Backend
 
 A Node.js/TypeScript backend that streams audio sermons stored in private Telegram channels directly to web clients. It uses Telegram's MTProto protocol (via GramJS) to authenticate users, fetch audio files, and pipe them as HTTP range-request streams — no file downloads, no S3, no CDN for the audio itself.
 
